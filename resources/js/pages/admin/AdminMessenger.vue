@@ -32,12 +32,10 @@
                 </div>
             </nav>
             <div class="panel-header panel-header-sm">
-                <div class="header text-center">
-                    <h2 class="title" style="line-height:1px;">Messenger</h2>
-                </div>
+
             </div>
             <div class="content">
-                <messenger :isGroupChat="isGroupChat" />
+                <messenger :isGroupChat="isGroupChat" :user="user" />
             </div>
         </div>
     </div>
