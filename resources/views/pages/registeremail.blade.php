@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -26,4 +26,25 @@
         <tr><td>Login to <a href="http://ccerms.online/login">ccerms</a>.</td></tr>
     </table>
 </body>
-</html>
+</html> --}}
+@component('mail::message')
+
+<table>
+    <tr>
+        <td>Dear {{ $data['name'] }} </td>
+    </tr>
+    <tr><td>&nbsp;</td></tr>
+    <tr>
+        <td>
+            Your Account has been registered to CCERMS. <br>
+            Your Account information is as below:
+        </td>
+    </tr>
+    <tr><td>&nbsp;</td></tr>
+    <tr><td>Email: {{ $data['email'] }}</td></tr>
+    <tr><td>&nbsp;</td></tr>
+    <tr><td>Password: {{ $data['password'] }}</td></tr>
+    <tr><td>&nbsp;</td></tr>
+</table>
+
+@endcomponent

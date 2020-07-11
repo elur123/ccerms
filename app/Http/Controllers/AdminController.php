@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
+
+use App\Mail\EmailConfirmation;
+use App\Mail\EmailCreation;
 class AdminController extends Controller
 {
     function Dashboard(){
@@ -711,9 +714,10 @@ class AdminController extends Controller
             if($stud){
                 $email = $request->email;
                 $messageData = ['email'=>$request->email, 'name'=>$request->name, 'password'=>$request->password];
-                Mail::send('pages.registeremail', $messageData, function($message) use($email){
-                    $message->to($email)->subject('Account Registered in CCERMS');
-                });
+                // Mail::send('pages.registeremail', $messageData, function($message) use($email){
+                //     $message->to($email)->subject('Account Registered in CCERMS');
+                // });
+                Mail::to($request->email)->send(new EmailCreation($messageData));
                 $message = 'success';
             }
             else{
@@ -735,9 +739,10 @@ class AdminController extends Controller
             if($stud){
                 $email = $request->email;
                 $messageData = ['email'=> $request->email, 'name'=> $request->name, 'us_id' => $request->us_id, 'type' => $request->type];
-                Mail::send('pages.email', $messageData, function($message) use($email){
-                    $message->to($email)->subject('Account Approved in CCERMS');
-                });
+                // Mail::send('pages.email', $messageData, function($message) use($email){
+                //     $message->to($email)->subject('Account Approved in CCERMS');
+                // });
+                Mail::to($email)->send(new EmailConfirmation($messageData));
                 $message = 'success';
             }
             else{
@@ -763,9 +768,10 @@ class AdminController extends Controller
                     if($student){
                         $email = $request->email;
                         $messageData = ['email'=> $request->email, 'name'=> $request->name,'password' => $request->password,'type' => $request->type];
-                        Mail::send('pages.email', $messageData, function($message) use($email){
-                            $message->to($email)->subject('Account Updated in CCERMS');
-                        });
+                        // Mail::send('pages.email', $messageData, function($message) use($email){
+                        //     $message->to($email)->subject('Account Updated in CCERMS');
+                        // });
+                        Mail::to($request->email)->send(new EmailConfirmation($messageData));
                         $message = 'success';
                     }
                     else{
@@ -783,9 +789,10 @@ class AdminController extends Controller
                     if($student){
                         $email = $request->email;
                         $messageData = ['email'=> $request->email, 'name'=> $request->name,'password' => $request->password,'type' => $request->type];
-                        Mail::send('pages.email', $messageData, function($message) use($email){
-                            $message->to($email)->subject('Account Updated in CCERMS');
-                        });
+                        // Mail::send('pages.email', $messageData, function($message) use($email){
+                        //     $message->to($email)->subject('Account Updated in CCERMS');
+                        // });
+                        Mail::to($request->email)->send(new EmailConfirmation($messageData));
                         $message = 'success';
                     }
                     else{
@@ -830,9 +837,10 @@ class AdminController extends Controller
         if($st){
             $email = $request->email;
             $messageData = ['email'=>$request->email, 'name'=>$request->name, 'password'=>$request->password];
-            Mail::send('pages.registeremail', $messageData, function($message) use($email){
-                $message->to($email)->subject('Account Registered in CCERMS');
-            });
+            // Mail::send('pages.registeremail', $messageData, function($message) use($email){
+            //     $message->to($email)->subject('Account Registered in CCERMS');
+            // });
+            Mail::to($request->email)->send(new EmailCreation($messageData));
             $message = 'success';
         }
         else{
@@ -865,9 +873,10 @@ class AdminController extends Controller
                     if($st){
                         $email = $request->email;
                         $messageData = ['email'=> $request->email, 'name'=> $request->name,'password' => $request->password,'type' => $request->type];
-                        Mail::send('pages.email', $messageData, function($message) use($email){
-                            $message->to($email)->subject('Account Updated in CCERMS');
-                        });
+                        // Mail::send('pages.email', $messageData, function($message) use($email){
+                        //     $message->to($email)->subject('Account Updated in CCERMS');
+                        // });
+                        Mail::to($request->email)->send(new EmailConfirmation($messageData));
                         $message = 'success';
                     }
                     else{
@@ -885,9 +894,10 @@ class AdminController extends Controller
                     if($st){
                         $email = $request->email;
                         $messageData = ['email'=> $request->email, 'name'=> $request->name,'password' => $request->password,'type' => $request->type];
-                        Mail::send('pages.email', $messageData, function($message) use($email){
-                            $message->to($email)->subject('Account Updated in CCERMS');
-                        });
+                        // Mail::send('pages.email', $messageData, function($message) use($email){
+                        //     $message->to($email)->subject('Account Updated in CCERMS');
+                        // });
+                        Mail::to($request->email)->send(new EmailConfirmation($messageData));
                         $message = 'success';
                     }
                     else{
@@ -907,9 +917,10 @@ class AdminController extends Controller
                 if($st){
                     $email = $request->email;
                     $messageData = ['email'=> $request->email, 'name'=> $request->name, 'us_id' => $request->us_id, 'type' => $request->type];
-                    Mail::send('pages.email', $messageData, function($message) use($email){
-                        $message->to($email)->subject('Account Approved in CCERMS');
-                    });
+                    // Mail::send('pages.email', $messageData, function($message) use($email){
+                    //     $message->to($email)->subject('Account Approved in CCERMS');
+                    // });
+                    Mail::to($request->email)->send(new EmailConfirmation($messageData));
                     $message = 'success';
                 }
                 else{
@@ -966,9 +977,10 @@ class AdminController extends Controller
         if ($rp) {
             $email = $request->email;
             $messageData = ['email'=>$request->email, 'name'=>$request->name, 'password'=>$request->password];
-            Mail::send('pages.registeremail', $messageData, function($message) use($email){
-                $message->to($email)->subject('Account Registered in CCERMS');
-            });
+            // Mail::send('pages.registeremail', $messageData, function($message) use($email){
+            //     $message->to($email)->subject('Account Registered in CCERMS');
+            // });
+            Mail::to($request->email)->send(new EmailCreation($messageData));
             $message = 'success';
         }
         else{
@@ -1002,9 +1014,10 @@ class AdminController extends Controller
                     if($rp){
                         $email = $request->email;
                         $messageData = ['email'=> $request->email, 'name'=> $request->name,'password' => $request->password,'type' => $request->type];
-                        Mail::send('pages.email', $messageData, function($message) use($email){
-                            $message->to($email)->subject('Account Updated in CCERMS');
-                        });
+                        // Mail::send('pages.email', $messageData, function($message) use($email){
+                        //     $message->to($email)->subject('Account Updated in CCERMS');
+                        // });
+                        Mail::to($request->email)->send(new EmailConfirmation($messageData));
                         $message = 'success';
                     }
                     else{
@@ -1023,9 +1036,10 @@ class AdminController extends Controller
                     if($rp){
                         $email = $request->email;
                         $messageData = ['email'=> $request->email, 'name'=> $request->name,'password' => $request->password,'type' => $request->type];
-                        Mail::send('pages.email', $messageData, function($message) use($email){
-                            $message->to($email)->subject('Account Updated in CCERMS');
-                        });
+                        // Mail::send('pages.email', $messageData, function($message) use($email){
+                        //     $message->to($email)->subject('Account Updated in CCERMS');
+                        // });
+                        Mail::to($request->email)->send(new EmailConfirmation($messageData));
                         $message = 'success';
                     }
                     else{
@@ -1043,9 +1057,10 @@ class AdminController extends Controller
             if($rp){
                 $email = $request->email;
                 $messageData = ['email'=> $request->email, 'name'=> $request->name, 'us_id' => $request->us_id, 'type' => $request->type];
-                Mail::send('pages.email', $messageData, function($message) use($email){
-                    $message->to($email)->subject('Account Approved in CCERMS');
-                });
+                // Mail::send('pages.email', $messageData, function($message) use($email){
+                //     $message->to($email)->subject('Account Approved in CCERMS');
+                // });
+                Mail::to($request->email)->send(new EmailConfirmation($messageData));
                 $message = 'success';
             }
             else{
