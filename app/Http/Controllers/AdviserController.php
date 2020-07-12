@@ -45,7 +45,7 @@ class AdviserController extends Controller
                 ->join('scheduletypes', 'groups.readyfor', 'scheduletypes.styp_id')
                 ->select('advisergroups.*', 'groups.*', 'courses.crs_id', 'courses.crs_title','scheduletypes.styp_id', 'scheduletypes.styp_title')
                 ->where('advisergroups.id', $id)
-                ->where('groups.grp_standing', 1)
+                ->whereIn('groups.grp_standing', [1,0])
                 ->get();
         $c2 = DB::table('advisergroups')
                 ->join('groups', 'advisergroups.grp_id', 'groups.grp_id')
@@ -55,8 +55,18 @@ class AdviserController extends Controller
                 ->where('advisergroups.id', $id)
                 ->where('groups.grp_standing', 2)
                 ->get();
-
-        return ['c1' => $c1, 'c2' => $c2];
+        $c3 = DB::table('advisergroups')
+                ->join('groups', 'advisergroups.grp_id', 'groups.grp_id')
+                ->join('courses', 'groups.crs_id', 'courses.crs_id')
+                ->join('scheduletypes', 'groups.readyfor', 'scheduletypes.styp_id')
+                ->select('advisergroups.*', 'groups.*', 'courses.crs_id', 'courses.crs_title','scheduletypes.styp_id', 'scheduletypes.styp_title')
+                ->where('advisergroups.id', $id)
+                ->where('groups.grp_standing', 3)
+                ->where('groups.isDone', 1)
+                ->get();
+        $active = $c1->count() + $c2->count();
+        $done = $c3->count();
+        return ['c1' => $c1, 'c2' => $c2, 'active' => $active, 'done' => $done];
     }
     function GetCapstone1CheckDocs(Request $request){
         if ($request->id != '') {

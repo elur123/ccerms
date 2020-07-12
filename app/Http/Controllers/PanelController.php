@@ -49,8 +49,24 @@ class PanelController extends Controller
                     ->where('panel_defenses.pan1_ID', $id)
                     ->where('panel_defenses.us_id', 1)
                     ->get();
-
-        return ['groups' => $group];
+        $active = DB::table('panel_defenses')
+                    ->join('groups', 'panel_defenses.grp_id', 'groups.grp_id')
+                    ->join('courses', 'groups.crs_id', 'courses.crs_id')
+                    ->select('panel_defenses.*' ,'groups.*', 'courses.crs_id' ,'courses.crs_title')
+                    ->where('panel_defenses.pan1_ID', $id)
+                    ->where('panel_defenses.us_id', 1)
+                    ->whereIn('groups.grp_standing', [1,2])
+                    ->get();
+        $done = DB::table('panel_defenses')
+                    ->join('groups', 'panel_defenses.grp_id', 'groups.grp_id')
+                    ->join('courses', 'groups.crs_id', 'courses.crs_id')
+                    ->select('panel_defenses.*' ,'groups.*', 'courses.crs_id' ,'courses.crs_title')
+                    ->where('panel_defenses.pan1_ID', $id)
+                    ->where('panel_defenses.us_id', 1)
+                    ->where('groups.grp_standing', 3)
+                    ->where('groups.isDone', 1)
+                    ->get();
+        return ['groups' => $group, 'active' => $active->count(), 'done' => $done->count()];
     }
     function GetRatingScale(){
         $rating = DB::table('tbl_ratingscale')->get();

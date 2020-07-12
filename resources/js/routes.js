@@ -38,6 +38,8 @@ import PanelSchedule from './pages/panel/PanelSchedule'
 import SubjectteacherDashboard from './pages/subjectteacher/SubjectteacherDashboard'
 import SubjectteacherProfile from './pages/subjectteacher/SubjectteacherProfile'
 import SubjectteacherMessenger from './pages/subjectteacher/SubjectteacherMessenger';
+import SubjectteacherSchedule from './pages/subjectteacher/SubjectteacherSchedule'
+import SubjectteacherSection from './pages/subjectteacher/SubjectteacherSection'
 
 //Student Route
 import StudentDashboard from './pages/student/StudentDashboard';
@@ -217,6 +219,16 @@ export default[
         path: '/subjectteacher/messenger',
         component: SubjectteacherMessenger,
         name: 'SubjectteacherMessenger'
+    },
+    {
+        path: '/subjectteacher/schedule',
+        component: SubjectteacherSchedule,
+        name: 'SubjectteacherSchedule'
+    },
+    {
+        path: '/subjectteacher/sections',
+        component: SubjectteacherSection,
+        name: 'SubjectteacherSection'
     },
 
     //Student Route

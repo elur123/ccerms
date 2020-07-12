@@ -14,7 +14,7 @@
                             </button>
                         </div>
 
-                        <a class="navbar-brand" href="#">Dashboard</a>
+                        <!-- <a class="navbar-brand" href="#">Dashboard</a> -->
                     </div>
 
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
@@ -77,7 +77,76 @@
             <div class="panel-header panel-header-sm" style="background:#820c68;">
             </div>
             <div class="content">
-
+                <div class="row">
+                    <div class="col-lg-4 col-sm-6">
+                        <div class="card card-stat bg-warning">
+                            <div class="card-body">
+                                <div class="statistics statistics-horizontal">
+                                    <div class="info info-horizontal">
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <div class="icon icon-primary icon-circle">
+                                                    <i class="now-ui-icons users_single-02"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-9 text-right">
+                                                <h3 class="info-title">{{ count.student  }}
+                                                </h3>
+                                                <h6 class="stats-title">Number of Student</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <div class="card card-stat bg-warning">
+                            <div class="card-body">
+                                <div class="statistics statistics-horizontal">
+                                    <div class="info info-horizontal">
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <div class="icon icon-primary icon-circle">
+                                                    <i class="now-ui-icons users_single-02"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-9 text-right">
+                                                <h3 class="info-title">{{ count.section  }}
+                                                </h3>
+                                                <h6 class="stats-title">Number of Sections</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <div class="card card-stat bg-warning">
+                            <div class="card-body">
+                                <div class="statistics statistics-horizontal">
+                                    <div class="info info-horizontal">
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <div class="icon icon-primary icon-circle">
+                                                    <i class="now-ui-icons users_single-02"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-9 text-right">
+                                                <h3 class="info-title">{{ count.group }}</h3>
+                                                <h6 class="stats-title">Number of Groups</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -94,13 +163,27 @@
         components: {
             'sidebar': SubjectteacherSidebar,
         },
-        methods: {
-            ...mapActions(["fetchadminDashboard", "fetchDependencies"])
+        data() {
+            return {
+                count: {
+                    student: 0,
+                    group: 0,
+                    section: 0,
+                }
+            }
         },
-        computed: mapGetters(['getadminDashboard']),
+        methods: {
+            GetSTDashbaord(){
+                axios.get('../api/getstdashboard/'+this.user.id).then(res => {
+                    this.count = {
+                        student : res.data.student,
+                        section : res.data.section
+                    }
+                })
+            }
+        },
         created() {
-            this.fetchadminDashboard();
-            this.fetchDependencies();
+            this.GetSTDashbaord()
         }
     }
 

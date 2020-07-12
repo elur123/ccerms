@@ -68,6 +68,12 @@ Route::group(['prefix' => 'subjectteacher', 'middleware' => ['auth','subjectteac
     Route::get('/dashboard', function(){
         return view('pages.admin');
     })->middleware('validateuser');
+    Route::get('/schedule', function(){
+        return view('pages.admin');
+    })->middleware('validateuser');
+    Route::get('/sections', function(){
+        return view('pages.admin');
+    })->middleware('validateuser');
     Route::get('/profile', function(){
         return view('pages.admin');
     })->middleware('validateuser');

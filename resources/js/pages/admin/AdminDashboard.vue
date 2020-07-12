@@ -283,11 +283,10 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <caps1 v-if="getadminDashboard.c1"></caps1>
+                                    <caps1 v-if="getadminDashboard.c1" :getadminDashboard="getadminDashboard.c1"></caps1>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <div class="row">
@@ -298,7 +297,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <caps2 v-if="getadminDashboard.c2"></caps2>
+                                    <caps2 v-if="getadminDashboard.c2" :getadminDashboard="getadminDashboard.c2"></caps2>
                                 </div>
                             </div>
                         </div>

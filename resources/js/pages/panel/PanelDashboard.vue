@@ -90,20 +90,15 @@
                                                 </div>
                                             </div>
                                             <div class="col-9 text-right">
-                                                <h3 class="info-title">{{ getadminDashboard.student }}
+                                                <h3 class="info-title">{{ count.active  }}
                                                 </h3>
-                                                <h6 class="stats-title">Number of Students</h6>
+                                                <h6 class="stats-title">Active Groups</h6>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <hr>
-                            <div class="card-footer">
-                                <div class="stats">
-                                    View Students
-                                </div>
-                            </div>
                         </div>
 
                     </div>
@@ -119,51 +114,31 @@
                                                 </div>
                                             </div>
                                             <div class="col-9 text-right">
-                                                <h3 class="info-title">{{ getadminDashboard.adviser }}</h3>
-                                                <h6 class="stats-title">Number of Adviser</h6>
+                                                <h3 class="info-title">{{ count.done }}</h3>
+                                                <h6 class="stats-title">Done Groups</h6>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <hr>
-                            <div class="card-footer">
-                                <div class="stats">
-                                    View Adviser
-                                </div>
-                            </div>
                         </div>
                     </div>
-                     <div class="col-lg-4 col-sm-6">
-                        <div class="card card-stat bg-warning">
-                            <div class="card-body">
-                                <div class="statistics statistics-horizontal">
-                                    <div class="info info-horizontal">
-                                        <div class="row">
-                                            <div class="col-3">
-                                                <div class="icon icon-primary icon-circle">
-                                                    <i class="now-ui-icons users_single-02"></i>
-                                                </div>
-                                            </div>
-                                            <div class="col-9 text-right">
-                                                <h3 class="info-title">{{ getadminDashboard.st }}</h3>
-                                                <h6 class="stats-title">Number of Subject Teacher</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="card-footer">
-                                <div class="stats">
-                                    View Subject Teacher
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
-
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title"> Group Progress</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <group v-if="groups != ''" :getadminDashboard="groups"></group>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -175,18 +150,33 @@
         mapGetters,
         mapActions
     } from 'vuex'
+    import Capstone1 from '../admin/Graph/Capstone1'
     export default {
         props: ['user'],
         components: {
             'sidebar': PanelSidebar,
+            'group': Capstone1,
+        },
+        data(){
+            return{
+                count : {
+                    active: 0,
+                    done: 0,
+                },
+                groups:'',
+            }
         },
         methods: {
-            ...mapActions(["fetchadminDashboard", "fetchDependencies"])
+            GetPanelGroups() {
+                axios.get('../api/getpanelgroups/' + this.user.id).then(res => {
+                    this.groups = res.data.groups
+                    this.count.active = res.data.active
+                    this.count.done = res.data.done
+                })
+            },
         },
-        computed: mapGetters(['getadminDashboard']),
         created() {
-            this.fetchadminDashboard();
-            this.fetchDependencies();
+            this.GetPanelGroups();
         }
     }
 

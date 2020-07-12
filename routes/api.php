@@ -85,6 +85,9 @@ Route::post('/getcastone1validation', 'PanelController@GetCapstone1Validation');
 Route::post('/caps1validate', 'PanelController@Validation1'); //Capstone 1 Validation
 Route::post('/caps2validate', 'PanelController@Validation2'); //Capstone 2 Validation
 
+//Subject Teacher Routes
+Route::get('/getstdashboard/{id}', 'SubjectteacherController@Dashboard'); //Subject Teacher Dashboard
+
 //Student Routes
 Route::post('/createGroup', 'StudentController@CreataGroup'); //student create group
 Route::post('/JoinGroup', 'StudentController@JoinGroup'); //student join group

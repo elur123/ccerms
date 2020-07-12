@@ -629,15 +629,18 @@ class AdminController extends Controller
         $group = '';
         if($request->typ == 1){
             $user = DB::table('users')
-                ->join('usertypes','users.typ_id', 'usertypes.typ_id')
-                ->select('users.name','users.id','usertypes.typ_title')
-                ->where('id', '!=', $request->id)
-                ->where('id', '!=', 2)
-                ->get();
+                        ->join('usertypes','users.typ_id', 'usertypes.typ_id')
+                        ->join('groups', 'users.grp_id','groups.grp_id')
+                        ->select('users.name','users.id','usertypes.typ_title')
+                        ->where('id', '!=', $request->id)
+                        ->where('id', '!=', 2)
+                        ->where('groups.isDone', 0)
+                        ->get();
             $group = DB::table('groups')
                         ->join('courses', 'groups.crs_id', 'courses.crs_id')
                         ->select('groups.*','courses.crs_title')
                         ->where('groups.grp_id','!=', 1)
+                        ->where('groups.isDone', 0)
                         ->get();
         }
         else if($request->typ == 2){
@@ -646,6 +649,7 @@ class AdminController extends Controller
                       ->join('users', 'groups.grp_id' ,'users.grp_id')
                       ->join('usertypes','users.typ_id', 'usertypes.typ_id')
                       ->select('users.name','users.id','usertypes.typ_title')
+                      ->where('groups.isDone', 0)
                       ->where('advisergroups.id', $request->id)
                       ->get();
             $group = DB::table('advisergroups')
@@ -653,7 +657,23 @@ class AdminController extends Controller
                       ->join('courses', 'groups.crs_id', 'courses.crs_id')
                       ->select('groups.*','courses.crs_title')
                       ->where('advisergroups.id', $request->id)
+                      ->where('groups.isDone', 0)
                       ->get();
+        }
+        else if($request->typ == 3){
+            $user = DB::table('users')
+                       ->join('usertypes','users.typ_id', 'usertypes.typ_id')
+                       ->select('users.name','users.id','usertypes.typ_title')
+                       ->where('id', 1)
+                       ->orWhere('grp_id', $request->grp)
+                       ->where('id', '!=', $request->id)
+                       ->get();
+
+            $group = DB::table('groups')
+                        ->join('courses', 'groups.crs_id', 'courses.crs_id')
+                        ->select('groups.*','courses.crs_title')
+                        ->where('groups.grp_id', $request->grp)
+                        ->get();
         }
 
 

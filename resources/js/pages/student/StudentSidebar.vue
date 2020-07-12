@@ -37,10 +37,10 @@
                                 </a>
                             </li>
                              <li>
-                                <a href="#">
+                                <router-link to="/student/messenger">
                                     <span class="sidebar-mini-icon">||</span>
                                     <span class="sidebar-normal">Messages</span>
-                                </a>
+                                </router-link>
                             </li>
                             <li>
                                 <a @click="logout" href="#">

@@ -74,35 +74,17 @@
 
                 </li>
                 <li>
-                    <a data-toggle="collapse" href="#managegroups">
-                        <i class="fas fa-users-cog"></i>
-                        <p>
-                            Manage Groups <b class="caret"></b>
-                        </p>
-                    </a>
-                    <div class="collapse " id="managegroups">
-                        <ul class="nav">
-                             <li>
-                                <router-link to="/subjectteacher/grouprequest">
-                                    <span class="sidebar-mini-icon">GR</span>
-                                    <span class="sidebar-normal">Group Request</span>
-                                </router-link>
-                            </li>
-                            <li>
-                                <router-link to="/subjectteacher/capstone1">
-                                    <span class="sidebar-mini-icon">C1</span>
-                                    <span class="sidebar-normal">Capstone 1</span>
-                                </router-link>
-                            </li>
-                            <li>
-                                <router-link to="/subjectteacher/capstone2">
-                                    <span class="sidebar-mini-icon">C2</span>
-                                    <span class="sidebar-normal">Capstone 2</span>
-                                </router-link>
-                            </li>
-                        </ul>
-                    </div>
+                    <router-link to="/subjectteacher/sections">
+                        <i class="fas fa-users"></i>
+                        <p>Manage Sections</p>
+                    </router-link>
 
+                </li>
+                <li>
+                    <router-link to="/subjectteacher/group">
+                        <i class="fas fa-users"></i>
+                        <p>Manage Groups</p>
+                    </router-link>
 
                 </li>
                  <li v-if="user.typ_id != 2">
