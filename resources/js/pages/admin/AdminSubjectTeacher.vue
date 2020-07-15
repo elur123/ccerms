@@ -194,13 +194,27 @@ export default {
         }
     },
     methods:{
+        SendEmail(to, subject, message){
+                Email.send({
+                    SecureToken :"21691b39-e134-40cd-86dd-da6081f54e65",
+                    To : to,
+                    From : "umccerms@gmail.com",
+                    Subject : subject,
+                    Body : message
+                }).then()
+        },
         CreateST(){
+            const subject = "Account Created"
+            const body = "Your Email is Created by the RC. Login to wwww.ccerms.online and use this credentials: <br>"
+                        +"Email: "+this.st.email+" <br> Password: "+this.st.password
             this.isloading = true
             axios.post('../api/createST', this.st).then(res =>{
                if (res.data.message == 'success') {
                    this.isloading = false
                    this.Alert('success', 'Successfully Created');
+                   this.SendEmail(this.st.email, subject, body)
                    this.Clear()
+
                }
                else{
                    this.isloading = false
@@ -228,12 +242,15 @@ export default {
             this.errors.password = 'Leave Blank if you will not change the password'
         },
         UpdateST(){
+            const subject = "Account Updated"
+            const body = "Your Account is Updated by the RC. Contact the RC for more Information"
             this.isloading = true
             axios.post('../api/updateST', this.st).then(res => {
                 if(res.data.message == 'success'){
                     this.isloading = false
                     this.isUpdate = false
                     this.Alert('success', 'Successfully Updated')
+                    this.SendEmail(this.st.email, subject, body)
                     this.Clear()
                 }
                 else{
@@ -248,6 +265,8 @@ export default {
             })
         },
         Decission(index,us_id){
+            const subject = "Account Status"
+            const body = "Please Contact the RC for more information for youre account."
             this.isloading = true
             this.subteacher = this.getstdata.data[index]
             this.st = {
@@ -261,6 +280,7 @@ export default {
                 if(res.data.message == 'success'){
                     this.isloading = false
                     this.Alert('success', 'Successfully Updated')
+                    this.SendEmail(this.st.email, subject, body)
                     this.Clear()
                 }
                 else{

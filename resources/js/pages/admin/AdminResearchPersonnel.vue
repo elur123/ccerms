@@ -255,6 +255,15 @@
             }
         },
         methods: {
+            SendEmail(to, subject, message){
+                 Email.send({
+                        SecureToken :"21691b39-e134-40cd-86dd-da6081f54e65",
+                        To : to,
+                        From : "umccerms@gmail.com",
+                        Subject : subject,
+                        Body : message
+                    }).then()
+            },
              Search: _.debounce(function(){
                 if(this.searching.search == ''){
                     this.fetchrpdata()
@@ -267,10 +276,14 @@
                 this.paginaterp(page)
             },
             CreateRP() {
+                const subject = "Account Created"
+                const body = "Your Email is created by the RC. Login in wwww.ccerms.online and use this Credentials: <br>"+
+                            "Email: "+this.rp.email+ " <br> Password: "+ this.rp.password
                 this.isloading = true
                 axios.post('../api/createRP', this.rp).then(res => {
                     if (res.data.message == 'success') {
                         this.isloading = false
+                        this.SendEmail(this.rp.email, subject, body)
                         this.Clear()
                         this.Alert('success', 'Successfully Created')
                     } else {
@@ -285,6 +298,8 @@
                 })
             },
             Decission(index, us_id) {
+                const subject = "Account Status"
+                const body = "Your account is Disapproved by the RC. Contact the RC for more information."
                 this.personnel = this.getrpdata.data[index];
                 this.rp = {
                     id: this.personnel.id,
@@ -302,6 +317,7 @@
                         if (res.data.message == 'success') {
                             this.isloading = false
                             this.Alert('success', 'Successfully Disapproved')
+                            this.SendEmail(this.rp.email, subject, body)
                             this.Clear()
                         } else {
                             this.isloading = true
@@ -312,11 +328,14 @@
             },
             AcceptRP(){
                 this.isloading = true
+                const subject = "Account Status"
+                const body = "Your account is Approved by the RC. Contact the RC for more information."
                  axios.post('../api/updateRP', this.rp).then(res => {
                         if (res.data.message == 'success') {
                              $('#mdlAcceptRP').modal('hide')
                             this.isloading = false
                             this.Alert('success', 'Successfully Approved')
+                            this.SendEmail(this.rp.email, subject, body)
                             this.Clear()
                         } else {
                             this.isloading = true
@@ -338,11 +357,14 @@
                 }
             },
             UpdateRP() {
+                const subject = "Account Updated"
+                const body = "Your account is updated by the RC. Contact the RC for more information."
                 this.isloading = true
                 axios.post('../api/updateRP', this.rp).then(res => {
                     if (res.data.message == 'success') {
                         this.isloading = false
                         this.isUpdate = false
+                        this.SendEmail(this.rp.email, subject, body)
                         this.Clear()
                         this.Alert('success', 'Successfully Created')
                         this.errors = {}

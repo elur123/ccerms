@@ -46,6 +46,8 @@ input[data-v-4bd11526] {
     <script src="/nowasset/assets/js/plugins/chartjs.min.js"></script>
     <script src="/nowasset/assets/js/plugins/bootstrap-notify.js"></script>
     <script src="/nowasset/assets/js/now-ui-dashboard.minaa26.js?v=1.5.0" type="text/javascript"></script>
+    <script src="https://smtpjs.com/v3/smtp.js">
+    </script>
     {{-- <script>
         $(document).ready(function () {
             $().ready(function () {

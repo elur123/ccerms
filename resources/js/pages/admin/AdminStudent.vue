@@ -224,6 +224,15 @@
             }
         },
         methods: {
+            SendEmail(to, subject, message){
+                 Email.send({
+                        SecureToken :"21691b39-e134-40cd-86dd-da6081f54e65",
+                        To : to,
+                        From : "umccerms@gmail.com",
+                        Subject : subject,
+                        Body : message
+                    }).then()
+            },
             SearchStudent: _.debounce(function(){
                 if(this.searching.search == ''){
                     this.fetchstudentdata()
@@ -236,6 +245,9 @@
                 this.paginatestudent(page)
             },
             CreateStudent(){
+                var subject = "New Account"
+                var body = "Your Account Has been created by the RC. Please use this credentials: <br> Email: "
+                            +this.email+" <br> Password: " +this.password
                 if(this.name == ''){
 
                     this.error.name = 'Please Provide a fullname'
@@ -287,6 +299,7 @@
                 }
                 else{
                     this.isCreating = true
+                    this.SendEmail(this.email, subject, body)
                     axios.post('../api/CreateStudent',{
                         name:this.name,
                         email:this.email,
@@ -305,8 +318,6 @@
 
                     })
                 }
-
-
             },
             getToUpdate(index){
                 this.error = {
@@ -323,6 +334,8 @@
             },
             UpdateStudent(){
                 var datas = {}
+                const subject = 'Account Updated'
+                const body = 'Your Account has been updated. Contact the RC for more Information.'
                 if(this.password == ''){
                     datas = {
                         id: this.student.id,
@@ -344,6 +357,7 @@
                     }
                 }
                 this.isUpdating = true
+                this.SendEmail(this.email, subject, body)
                 axios.post('../api/updatestudent', datas).then(res => {
                     if(res.data.message == 'success'){
                         this.isUdate = false
@@ -359,7 +373,10 @@
             },
             Decission(str, id, name, email) {
                 this.isloading = true
+                const subject = 'Student Status'
+
                 if (str == 1) {
+                const body = 'Your Account is being Approved by the RC'
                     const data = {
                         type: 'approval',
                         id: id,
@@ -367,6 +384,7 @@
                         name: name,
                         us_id: 1
                     }
+                    this.SendEmail(email, subject, body)
                     axios.post('../api/updatestudent', data).then(res => {
                         if (res.data.message == 'success') {
                             this.isloading = false
@@ -378,6 +396,7 @@
                         }
                     })
                 } else {
+                    const body = 'Your Account is being Disapproved by the RC'
                     const data = {
                         type: 'approval',
                         email: email,
@@ -385,6 +404,7 @@
                         id: id,
                         us_id: 2
                     }
+                    this.SendEmail(email, subject, body)
                     axios.post('../api/updatestudent', data).then(res => {
                         if (res.data.message == 'success') {
                             this.isloading = false
