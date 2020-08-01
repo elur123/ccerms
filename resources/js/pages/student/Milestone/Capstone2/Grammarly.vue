@@ -74,10 +74,10 @@ export default {
     },
     methods:{
         GrammarlyDL(str){
-            this.path = '../storage/Adviserfiles/Grammarly/'+str
+            this.path = '../app/myfiles/Adviserfiles/Grammarly/'+str
         },
         PlagiarismDL(str){
-            this.path = '../storage/RCFiles/Plagiarism/'+str
+            this.path = '../app/myfiles/RCFiles/Plagiarism/'+str
         },
     },
     computed: mapGetters(['getcaps1grammarly']),

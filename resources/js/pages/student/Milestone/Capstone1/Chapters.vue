@@ -237,7 +237,7 @@
             ShowDetails(index){
                 $('#mdlShowDetails').modal('show')
                 this.docs = this.getcaps1submitteddocs.documents1[index]
-                this.path = '../storage/Adviserfiles/Capstone1/'+this.docs.adv_file
+                this.path = '../app/myfiles/Adviserfiles/Capstone1/'+this.docs.adv_file
 
             },
             Alert(icon, title) {

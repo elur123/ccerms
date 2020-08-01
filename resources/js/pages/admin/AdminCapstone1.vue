@@ -120,12 +120,12 @@
                                                 Minutes
                                             </a>
                                         </li>
-                                        <li class="nav-item">
+                                        <!-- <li class="nav-item">
                                             <a href="#message" data-toggle="tab" role="tablist" class="nav-link">
                                                 <i class="fas fa-comment-dots"></i>
                                                 Message
                                             </a>
-                                        </li>
+                                        </li> -->
                                     </ul>
                                 </div>
                                 <div class="tab-content tab-space tab-subcategories">
@@ -310,9 +310,9 @@
                                     <div class="tab-pane" id="minutes">
                                         <Minutes :capstone="capstone" />
                                     </div>
-                                    <div class="tab-pane" id="message">
+                                    <!-- <div class="tab-pane" id="message">
                                         <h4 class="title text-center">Group Schedule</h4>
-                                    </div>
+                                    </div> -->
                                     <div class="tab-pane" id="submission">
                                         <Turnitin :getcaps1evalution="getcaps1evalution"
                                             :getcaps1validation="getcaps1validation" :grp="capstone" :user="user" />

@@ -16,6 +16,12 @@ import TitleOutlineMinutes from './pages/admin/TitleOutlineMinutes'
 import FinalMinutes from './pages/admin/FinalMinutes'
 import AdminViewdocuments from './pages/admin/AdminViewdocuments'
 import AdminAdddocuments from './pages/admin/AdminAdddocuments'
+import AdviserperGroupReport from './pages/admin/Reports/AdviserperGroupReport'
+import EvaluationReport from './pages/admin/Reports/EvaluationReport'
+import GroupProgressReport from './pages/admin/Reports/GroupProgressReport'
+import ListofResearchReport from './pages/admin/Reports/ListofResearchReport'
+import ResearchPersonnelReport from './pages/admin/Reports/ResearchPersonnelReport'
+import ScheduleReport from './pages/admin/Reports/ScheduleReport'
 
 //Adviser Route
 import AdviserDashboard from './pages/adviser/AdviserDashboard';
@@ -134,6 +140,36 @@ export default[
         path: '/admin/adddocument',
         component: AdminAdddocuments,
         name: 'AdminAdddocuments'
+    },
+    {
+        path: '/admin/adviserreports',
+        component: AdviserperGroupReport,
+        name: 'AdviserperGroupReport'
+    },
+    {
+        path: '/admin/evaluationreport',
+        component: EvaluationReport,
+        name: 'EvaluationReport'
+    },
+    {
+        path: '/admin/groupprogressreport',
+        component: GroupProgressReport,
+        name: 'GroupProgressReport'
+    },
+    {
+        path: '/admin/listofresearchreport',
+        component:ListofResearchReport ,
+        name: 'ListofResearchReport'
+    },
+    {
+        path: '/admin/researchpersonnelreport',
+        component: ResearchPersonnelReport,
+        name: 'ResearchPersonnelReport'
+    },
+    {
+        path: '/admin/schedulereport',
+        component: ScheduleReport,
+        name: 'ScheduleReport'
     },
 
     //Adviser Route

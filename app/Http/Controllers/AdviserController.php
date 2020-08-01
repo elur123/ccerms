@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 class AdviserController extends Controller
 {
     function GetAdviserGroupRequest($id){
@@ -125,7 +126,7 @@ class AdviserController extends Controller
             $ext = $file->getClientOriginalExtension();
             $name = $request->name.$request->group.$oldRev.'.'.$ext;
             if ($request->standing == 1) {
-                if($file->storeAs('Adviserfiles/Capstone1', $name , 'public')){
+                if(Storage::disk('myfiles')->putFileAs('Adviserfiles/Capstone1/', $file, $name)){
                     $document = DB::table('tbl_documentsubmission')
                                   ->where('dcs_id', $request->dcs_id)
                                   ->update([
@@ -143,7 +144,7 @@ class AdviserController extends Controller
                 }
             }
             else{
-                if($file->storeAs('Adviserfiles/Capstone2', $name , 'public')){
+                if(Storage::disk('myfiles')->putFileAs('Adviserfiles/Capstone2/', $file, $name)){
                     $document = DB::table('tbl_documentsubmission')
                                   ->where('dcs_id', $request->dcs_id)
                                   ->update([
@@ -168,7 +169,7 @@ class AdviserController extends Controller
                 $ext = $file->getClientOriginalExtension();
                 $name = $request->name.$request->group.$oldRev.'.'.$ext;
                 if ($request->standing == 1) {
-                    if($file->storeAs('Adviserfiles/Capstone1', $name , 'public')){
+                    if(Storage::disk('myfiles')->putFileAs('Adviserfiles/Capstone1/', $file, $name)){
                         $document = DB::table('tbl_documentsubmission')
                                     ->where('dcs_id', $request->dcs_id)
                                     ->update([
@@ -198,7 +199,7 @@ class AdviserController extends Controller
                     }
                 }
                 else{
-                    if($file->storeAs('Adviserfiles/Capstone2', $name , 'public')){
+                    if(Storage::disk('myfiles')->putFileAs('Adviserfiles/Capstone2/', $file, $name)){
                         $document = DB::table('tbl_documentsubmission')
                                     ->where('dcs_id', $request->dcs_id)
                                     ->update([
@@ -351,7 +352,7 @@ class AdviserController extends Controller
             $file = $request->file('file');
             $ext = $file->getClientOriginalExtension();
             $name = $request->grp_title.$request->document.'.'.$ext;
-            if($file->storeAs('Adviserfiles/Grammarly', $name , 'public') && $file->storeAs('Submittedfiles/Capstone1/', $name, 'public')){
+            if(Storage::disk('myfiles')->putFileAs('Adviserfiles/Grammarly/', $file, $name) && Storage::disk('myfiles')->putFileAs('Submittedfiles/Capstone1/', $file, $name)){
                 $grammar = DB::table('tbl_caps1grammarly')
                               ->insert([
                                 'gra_file' => $name,

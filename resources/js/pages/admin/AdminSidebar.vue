@@ -193,40 +193,40 @@
                     <div class="collapse " id="generatereports">
                         <ul class="nav">
                             <li>
-                                <a href="pages/pricing.html">
+                                <router-link to="/admin/adviserreports">
                                     <span class="sidebar-mini-icon">APG</span>
                                     <span class="sidebar-normal">Adviser Per Groups</span>
-                                </a>
+                                </router-link>
                             </li>
                             <li>
-                                <a href="pages/pricing.html">
+                                <router-link to="/admin/researchpersonnelreport">
                                     <span class="sidebar-mini-icon">RP</span>
                                     <span class="sidebar-normal">Research Personnel</span>
-                                </a>
+                                </router-link>
                             </li>
                             <li>
-                                <a href="pages/pricing.html">
+                                <router-link to="/admin/groupprogressreport">
                                     <span class="sidebar-mini-icon">GP</span>
                                     <span class="sidebar-normal">Group Progress</span>
-                                </a>
+                                </router-link>
                             </li>
                             <li>
-                                <a href="pages/pricing.html">
+                                <router-link to="/admin/listofresearchreport">
                                     <span class="sidebar-mini-icon">LOR</span>
                                     <span class="sidebar-normal">List of Research</span>
-                                </a>
+                                </router-link>
                             </li>
                             <li>
-                                <a href="pages/pricing.html">
+                                <router-link to="/admin/schedulereport">
                                     <span class="sidebar-mini-icon">SP</span>
                                     <span class="sidebar-normal">Schedule Report</span>
-                                </a>
+                                </router-link>
                             </li>
                             <li>
-                                <a href="pages/pricing.html">
+                                <router-link to="/admin/evaluationreport">
                                     <span class="sidebar-mini-icon">EP</span>
                                     <span class="sidebar-normal">Evaluation Report</span>
-                                </a>
+                                </router-link>
                             </li>
                         </ul>
                     </div>

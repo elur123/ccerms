@@ -191,13 +191,13 @@
         },
         methods: {
             GrammarlyDL(str) {
-                this.path = '../storage/Adviserfiles/Grammarly/' + str
+                this.path = '../app/myfiles/Adviserfiles/Grammarly/' + str
             },
             DocumentDL(str) {
-                this.path = '../storage/Submittedfiles/Capstone1/' + str
+                this.path = '../app/myfiles/Submittedfiles/Capstone1/' + str
             },
             PlagiarismDL(str){
-                this.path = '../storage/RCFiles/Plagiarism/' + str
+                this.path = '../app/myfiles/RCFiles/Plagiarism/' + str
             },
             updatefiles(e) {
                 let file = e.target.files[0];

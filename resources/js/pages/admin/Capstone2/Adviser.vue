@@ -26,7 +26,7 @@
                                 <tbody>
                                     <tr v-for="(docs) in getcaps1checkdocs.document2" :key="docs.dcs_id">
                                         <td>{{ docs.dcs_revID }}</td>
-                                        <td>{{ docs.dcs_document }}</td>
+                                        <td><a :href="'../app/myfiles/Submittedfiles/Capstone2/'+docs.dcs_file">{{ docs.dcs_document }}</a></td>
                                         <td>{{ docs.dcs_date }}</td>
                                         <td v-if="docs.adv_date == null">Not yet check</td>
                                         <td v-if="docs.adv_date != null">{{docs.adv_date}}</td>
@@ -90,7 +90,7 @@
         },
         methods:{
             GrammarlyDL(str){
-                this.path = '../storage/Adviserfiles/Grammarly/'+str
+                this.path = '../app/myfiles/Adviserfiles/Grammarly/'+str
             },
         },
         computed: mapGetters(['getcaps1checkdocs', 'getcaps1grammarly']),

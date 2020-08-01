@@ -453,13 +453,13 @@
                 // this.getCapstone1ReviseFile(req1)
             },
             FileDL() {
-                this.path = '../storage/Submittedfiles/Capstone2/' + this.finaldocs.fin_file
+                this.path = '../app/myfiles/Submittedfiles/Capstone2/' + this.finaldocs.fin_file
             },
             ReviseDL() {
-                this.path = '../storage/Submittedfiles/Capstone2/' + this.revise.rev_grpfile
+                this.path = '../app/myfiles/Submittedfiles/Capstone2/' + this.revise.rev_grpfile
             },
             GetPath(str){
-                this.path = '../storage/Panelfiles/'+str
+                this.path = '../app/myfiles/Panelfiles/'+str
             },
             Decission(status) {
                 if (status == 3) {

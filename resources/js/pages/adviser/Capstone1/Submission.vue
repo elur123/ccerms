@@ -18,7 +18,7 @@
                 <tbody>
                     <tr v-for="(docs, index) in getcaps1checkdocs.document1" :key="docs.dcs_id">
                         <td>{{ docs.dcs_revID }}</td>
-                        <td>{{ docs.dcs_document }}</td>
+                        <td><a :href="'../app/myfiles/Submittedfiles/Capstone1/'+docs.dcs_file">{{ docs.dcs_document }}</a></td>
                         <td>{{ docs.dcs_date }}</td>
                         <td v-if="docs.adv_date == null">Not yet check</td>
                         <td v-if="docs.adv_date != null">{{docs.adv_date}}</td>
@@ -230,12 +230,12 @@
                 })
             },
             FileDL() {
-                this.path = '../storage/Submittedfiles/Capstone1/' + this.finaldocs.fin_file
+                this.path = '../app/myfiles/Submittedfiles/Capstone1/' + this.finaldocs.fin_file
             },
             Check(index) {
                 this.isCheck = true
                 this.docs = this.getcaps1checkdocs.document1[index]
-                this.path = '../storage/Submittedfiles/Capstone1/' + this.docs.dcs_file
+                this.path = '../app/myfiles/Submittedfiles/Capstone1/' + this.docs.dcs_file
 
                 if (index > 0) {
                     this.isCheck = false
@@ -381,7 +381,7 @@
                 })
             },
             GrammarlyDL(str) {
-                this.pathg = '../storage/Adviserfiles/Grammarly/' + str
+                this.pathg = '../app/myfiles/Adviserfiles/Grammarly/' + str
             },
             ClearGrammarly() {
                 this.loading = false

@@ -93,7 +93,7 @@
             view(index){
                 this.showresearch = true
                 this.file = this.files.data[index]
-                this.path = '../storage/Files/Doneresearch/'+this.file.res_file;
+                this.path = '../app/myfiles/Files/Doneresearch/'+this.file.res_file;
             },
             showFiles() {
                 axios.get('/api/archiveresearch').then(res => {

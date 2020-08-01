@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 class PanelController extends Controller
 {
     function GetPanelGroupRequest($id){
@@ -252,7 +253,7 @@ class PanelController extends Controller
             $file = $request->file('file');
             $ext = $file->getClientOriginalExtension();
             $name = $request->name.$request->group.$request->standing.'-'.$count->count().'.'.$ext;
-            if ($file->storeAs('Panelfiles/',$name, 'public')) {
+            if (Storage::disk('myfiles')->putFileAs('Panelfiles/', $file, $name)) {
                 $revise = DB::table('tbl_panelrevisefile')
                             ->insert([
                                 'rev_grp' => $request->grp,
@@ -315,7 +316,7 @@ class PanelController extends Controller
         else {
             $file = $request->file('file');
             $name = $request->filename;
-            if ($file->storeAs('Panelfiles/', $name, 'public')) {
+            if (Storage::disk('myfiles')->putFileAs('Panelfiles/', $file, $name)) {
                 $revise = DB::table('tbl_panelrevisefile')
                         ->where('rev_id', $request->rev_id)
                         ->update([

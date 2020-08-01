@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 class StudentController extends Controller
 {
 
@@ -141,7 +142,7 @@ class StudentController extends Controller
             }
             else{
                 if ($request->standing == 1) {
-                    if($file->storeAs('Submittedfiles/Capstone1', $name , 'public')){
+                    if(Storage::disk('myfiles')->putFileAs('Submittedfiles/Capstone1/', $file, $name)){
                         $submit = DB::table('tbl_documentsubmission')
                                     ->insert([
                                         'dcs_revID' => $rev->count(),
@@ -163,7 +164,7 @@ class StudentController extends Controller
                     }
                 }
                 else{
-                    if($file->storeAs('Submittedfiles/Capstone2', $name , 'public')){
+                    if(Storage::disk('myfiles')->putFileAs('Submittedfiles/Capstone2/', $file, $name)){
                         $submit = DB::table('tbl_documentsubmission')
                                     ->insert([
                                         'dcs_revID' => $rev->count(),
@@ -191,7 +192,7 @@ class StudentController extends Controller
             $ext = $file->getClientOriginalExtension();
             $name = $request->grp_title.$request->chapter.'-'.$rev->count().'.'.$ext;
             if ($request->standing == 1) {
-                if($file->storeAs('Submittedfiles/Capstone1', $name , 'public')){
+                if(Storage::disk('myfiles')->putFileAs('Submittedfiles/Capstone1/', $file, $name)){
                     $submit = DB::table('tbl_documentsubmission')
                                 ->insert([
                                     'dcs_revID' => $rev->count(),
@@ -213,7 +214,7 @@ class StudentController extends Controller
                 }
             }
             else{
-                if($file->storeAs('Submittedfiles/Capstone2', $name , 'public')){
+                if(Storage::disk('myfiles')->putFileAs('Submittedfiles/Capstone2/', $file, $name)){
                     $submit = DB::table('tbl_documentsubmission')
                                 ->insert([
                                     'dcs_revID' => $rev->count(),
@@ -253,7 +254,7 @@ class StudentController extends Controller
             $ext = $file->getClientOriginalExtension();
             $name = $request->grp_title.$request->chapter.'-'.$oldRev.'.'.$ext;
             if ($request->standing == 1) {
-                if($file->storeAs('Submittedfiles/Capstone1', $name , 'public')){
+                if(Storage::disk('myfiles')->putFileAs('Submittedfiles/Capstone1/', $file, $name)){
                     $submit = DB::table('tbl_documentsubmission')
                                 ->where('dcs_id', $request->dcs_id)
                                 ->update([
@@ -271,7 +272,7 @@ class StudentController extends Controller
                 }
             }
             else{
-                if($file->storeAs('Submittedfiles/Capstone2', $name , 'public')){
+                if(Storage::disk('myfiles')->putFileAs('Submittedfiles/Capstone2/', $file, $name)){
                     $submit = DB::table('tbl_documentsubmission')
                                 ->where('dcs_id', $request->dcs_id)
                                 ->update([
@@ -343,7 +344,7 @@ class StudentController extends Controller
             $ext = $file->getClientOriginalExtension();
             $name = $request->group.$request->chapter.'-Panel-'.$request->id.'-'.$request->rev_revID.'.'.$ext;
             if ($request->standing == 1) {
-                if ($file->storeAs('Submittedfiles/Capstone1/', $name, 'public')) {
+                if (Storage::disk('myfiles')->putFileAs('Submittedfiles/Capstone1/', $file, $name)) {
                     $revise = DB::table('tbl_panelrevisefile')
                                 ->where('rev_id', $request->rev_id)
                                 ->update([
@@ -361,7 +362,7 @@ class StudentController extends Controller
                 }
             }
             else{
-                if ($file->storeAs('Submittedfiles/Capstone2/', $name, 'public')) {
+                if (Storage::disk('myfiles')->putFileAs('Submittedfiles/Capstone2/', $file, $name)) {
                     $revise = DB::table('tbl_panelrevisefile')
                                 ->where('rev_id', $request->rev_id)
                                 ->update([
@@ -405,7 +406,7 @@ class StudentController extends Controller
             $file = $request->file('file');
             $name = $request->filename;
             if ($request->standing == 1) {
-                if ($file->storeAs('Submittedfiles/Capstone1/', $name, 'public')) {
+                if (Storage::disk('myfiles')->putFileAs('Submittedfiles/Capstone1/', $file, $name)) {
                     $revise = DB::table('tbl_panelrevisefile')
                                 ->where('rev_id', $request->rev_id)
                                 ->update([
@@ -421,7 +422,7 @@ class StudentController extends Controller
                 }
             }
             else{
-                if ($file->storeAs('Submittedfiles/Capstone2/', $name, 'public')) {
+                if (Storage::disk('myfiles')->putFileAs('Submittedfiles/Capstone1/', $file, $name)) {
                     $revise = DB::table('tbl_panelrevisefile')
                                 ->where('rev_id', $request->rev_id)
                                 ->update([
@@ -457,7 +458,7 @@ class StudentController extends Controller
         $deployExt = $deployment->getClientOriginalExtension();
         $deployName = $request->group.'Deployment.'.$deployExt;
 
-        if ($acceptance->storeAs('Submittedfiles/Capstone2/', $acceptName, 'public') && $deployment->storeAs('Submittedfiles/Capstone2/', $deployName, 'public')) {
+        if (Storage::disk('myfiles')->putFileAs('Submittedfiles/Capstone2/', $acceptance, $acceptName) && Storage::disk('myfiles')->putFileAs('Submittedfiles/Capstone2/', $deployment, $deployName)) {
             $system = DB::table('tbl_capston2systemchecking')
                         ->insert([
                             'sys_grp' => $request->grp_id,
@@ -483,7 +484,7 @@ class StudentController extends Controller
         }
         else if($request->acceptance == ''){
             $deployment = $request->file('deployment');
-            if ($deployment->storeAs('Submittedfiles/Capstone2/', $request->deployname, 'public')) {
+            if (Storage::disk('myfiles')->putFileAs('Submittedfiles/Capstone2/', $deployment, $request->deployname)) {
                 $system = DB::table('tbl_capston2systemchecking')
                             ->where('sys_grp', $request->grp_id)
                             ->update([
@@ -499,7 +500,7 @@ class StudentController extends Controller
         }
         else if($request->deployment == ''){
             $acceptance = $request->file('acceptance');
-            if ($acceptance->storeAs('Submittedfiles/Capstone2/', $request->acceptname, 'public')) {
+            if (Storage::disk('myfiles')->putFileAs('Submittedfiles/Capstone2/', $acceptance, $request->acceptname)) {
                 $system = DB::table('tbl_capston2systemchecking')
                             ->where('sys_grp', $request->grp_id)
                             ->update([
@@ -516,7 +517,7 @@ class StudentController extends Controller
         else{
             $deployment =  $request->file('deployment');
             $acceptance = $request->file('acceptance');
-            if ($deployment->storeAs('Submittedfiles/Capstone2/', $request->deployname, 'public') && $acceptance->storeAs('Submittedfiles/Capstone2/', $request->acceptname, 'public')) {
+            if (Storage::disk('myfiles')->putFileAs('Submittedfiles/Capstone2/', $deployment, $request->deployname) && Storage::disk('myfiles')->putFileAs('Submittedfiles/Capstone2/', $acceptance, $request->acceptname)) {
                 $system = DB::table('tbl_capston2systemchecking')
                             ->where('sys_grp', $request->grp_id)
                             ->update([
@@ -553,7 +554,7 @@ class StudentController extends Controller
             $finalExt = $final->getClientOriginalExtension();
             $finalName = $request->group.$checkCount->count().'Final.'.$finalExt;
 
-            if ($final->storeAs('Submittedfiles/Done/', $finalName, 'public')) {
+            if (Storage::disk('myfiles')->putFileAs('Submittedfiles/Done/', $final, $finalName)) {
                     $checklist = DB::table('tbl_finalchecklist')
                                     ->insert([
                                         'fc_grp' => $request->grp_id,
@@ -580,7 +581,7 @@ class StudentController extends Controller
         }
         else{
             $file =  $request->file('file');
-            if($file->storeAs('Submittedfiles/Done/', $request->filename, 'public')) {
+            if(Storage::disk('myfiles')->putFileAs('Submittedfiles/Done/', $file, $request->filename)) {
                 $update = DB::table('tbl_finalchecklist')
                             ->where('fc_id', $request->id)
                             ->update([

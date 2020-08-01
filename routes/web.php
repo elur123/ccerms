@@ -61,6 +61,24 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','admin']], function()
     Route::get('/adddocument', function(){
         return view('pages.admin');
     })->middleware('validateuser');
+    Route::get('/adviserreports', function(){
+        return view('pages.admin');
+    })->middleware('validateuser');
+    Route::get('/evaluationreport', function(){
+        return view('pages.admin');
+    })->middleware('validateuser');
+    Route::get('/groupprogressreport', function(){
+        return view('pages.admin');
+    })->middleware('validateuser');
+    Route::get('/listofresearchreport', function(){
+        return view('pages.admin');
+    })->middleware('validateuser');
+    Route::get('/researchpersonnelreport', function(){
+        return view('pages.admin');
+    })->middleware('validateuser');
+    Route::get('/schedulereport', function(){
+        return view('pages.admin');
+    })->middleware('validateuser');
 });
 
 //Route for Subject Teacher

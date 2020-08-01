@@ -65,10 +65,10 @@
                 })
             },
             FinalDL() {
-                this.path = '../storage/Submittedfiles/Capstone1/' + this.finaldocs.fin_file
+                this.path = '../app/myfiles/Submittedfiles/Capstone1/' + this.finaldocs.fin_file
             },
             PanelDL(str) {
-                this.path = '../storage/Panelfiles/' + str
+                this.path = '../app/myfiles/Panelfiles/' + str
             },
             ...mapActions(["getCapstone1ReviseFile"])
         },

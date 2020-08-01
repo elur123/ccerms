@@ -235,7 +235,7 @@ import {mapGetters,mapActions} from 'vuex'
             ShowDetails(index){
                 $('#mdlShowDetails').modal('show')
                 this.docs = this.getcaps1submitteddocs.documents2[index]
-                this.path = '../storage/Adviserfiles/Capstone2/'+this.docs.adv_file
+                this.path = '../app/myfiles/Adviserfiles/Capstone2/'+this.docs.adv_file
             },
             Alert(icon, title) {
                 toast.fire({

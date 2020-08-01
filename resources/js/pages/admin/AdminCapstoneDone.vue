@@ -86,12 +86,12 @@
                                             Checklist
                                         </a>
                                     </li>
-                                    <li class="nav-item">
+                                    <!-- <li class="nav-item">
                                         <a href="#resources" data-toggle="tab" role="tablist" class="nav-link">
                                             <i class="fas fa-file"></i>
                                             Resources
                                         </a>
-                                    </li>
+                                    </li> -->
                                 </ul>
                                 <div class="tab-content tab-space tab-subcategories">
                                     <div class="tab-pane active" id="info">
@@ -100,9 +100,9 @@
                                     <div class="tab-pane" id="checklist">
                                         <checklist :grp="grp" />
                                     </div>
-                                    <div class="tab-pane" id="resources">
+                                    <!-- <div class="tab-pane" id="resources">
 
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>

@@ -80,7 +80,7 @@ export default {
     },
     methods:{
         CheckDL(str){
-            this.path = '../storage/Submittedfiles/Done/'+str
+            this.path = '../app/myfiles/Submittedfiles/Done/'+str
         },
         OpenModal(index){
             $('#mdlCecklist').modal('show')

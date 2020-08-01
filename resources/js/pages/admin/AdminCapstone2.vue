@@ -543,9 +543,9 @@
                 axios.get('../api/getsystemcertificate/' + this.capstone.grp_id).then(res => {
                     if (res.data.length > 0) {
                         this.systemchecking = res.data[0]
-                        this.path.acceptpath = '../storage/Submittedfiles/Capstone2/' + res.data[0]
+                        this.path.acceptpath = '../app/myfiles/Submittedfiles/Capstone2/' + res.data[0]
                             .sys_acceptfile
-                        this.path.deploypath = '../storage/Submittedfiles/Capstone2/' + res.data[0]
+                        this.path.deploypath = '../app/myfiles/Submittedfiles/Capstone2/' + res.data[0]
                             .sys_deployfile
                     }
                 })

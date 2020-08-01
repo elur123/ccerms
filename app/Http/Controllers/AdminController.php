@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\Storage;
 use App\Mail\EmailConfirmation;
 use App\Mail\EmailCreation;
 class AdminController extends Controller
@@ -176,7 +176,7 @@ class AdminController extends Controller
             $file = $request->file('file');
             $ext = $file->getClientOriginalExtension();
             $name = $request->groupname.$gname.'.'.$ext;
-            if ($file->storeAs('Files/Doneresearch/', $name, 'public')) {
+            if (Storage::disk('myfiles')->putFileAs('Files/Doneresearch/', $file, $name)) {
                 $research = DB::table('researchfiles')
                                 ->insert([
                                     'res_title' => $request->title,
@@ -241,7 +241,7 @@ class AdminController extends Controller
         }
         else{
             $file = $request->file('file');
-            if ($file->storeAs('Files/Doneresearch/', $name, 'public')) {
+            if (Storage::disk('myfiles')->putFileAs('Files/Doneresearch/', $file, $name)) {
                 $research = DB::table('researchfiles')
                                 ->where('res_id', $request->id)
                                 ->update([
@@ -502,7 +502,7 @@ class AdminController extends Controller
                     ->join('defense_status', 'minutes.min_status', 'defense_status.ds_id')
                     ->join('finalminutes', 'minutes.min2_id', 'finalminutes.min2_id')
                     ->join('groups', 'minutes.grp_id', 'groups.grp_id')
-                    ->select('minutes.*','finalminutes.*', 'defense_status.ds_title', 'groups.*',)
+                    ->select('minutes.*','finalminutes.*', 'defense_status.ds_title', 'groups.*')
                     ->where('minutes.grp_id', $request->grp)
                     ->get();
             }
@@ -511,7 +511,7 @@ class AdminController extends Controller
                     ->join('defense_status', 'minutes.min_status', 'defense_status.ds_id')
                     ->join('finalminutes', 'minutes.min2_id', 'finalminutes.min2_id')
                     ->join('groups', 'minutes.grp_id', 'groups.grp_id')
-                    ->select('minutes.*','finalminutes.*', 'defense_status.ds_title', 'groups.*',)
+                    ->select('minutes.*','finalminutes.*', 'defense_status.ds_title', 'groups.*')
                     ->where('minutes.grp_id', $request->grp)
                     ->get();
             }
@@ -528,7 +528,7 @@ class AdminController extends Controller
                     ->join('defense_status', 'minutes.min_status', 'defense_status.ds_id')
                     ->join('finalminutes', 'minutes.min2_id', 'finalminutes.min2_id')
                     ->join('groups', 'minutes.grp_id', 'groups.grp_id')
-                    ->select('minutes.*','finalminutes.*', 'defense_status.ds_title', 'groups.*',)
+                    ->select('minutes.*','finalminutes.*', 'defense_status.ds_title', 'groups.*')
                     ->paginate(8);
         }
         else{
@@ -1321,7 +1321,7 @@ class AdminController extends Controller
             $file = $request->file('file');
             $ext = $file->getClientOriginalExtension();
             $name = $request->grp_title.$request->document.'.'.$ext;
-            if($file->storeAs('RCFiles/Plagiarism', $name , 'public')){
+            if(Storage::disk('myfiles')->putFileAs('RCFiles/Plagiarism/', $file, $name)){
                 $grammar = DB::table('tbl_caps1plagiarism')
                                 ->insert([
                                 'pla_file' => $name,
@@ -1367,7 +1367,7 @@ class AdminController extends Controller
                             ->where('grp_id', $request->grp_id)
                             ->update([
                                 'grp_standing' => 2,
-                                'readfor' => 4,
+                                'readyfor' => 4,
                             ]);
             if($approval){
                 $message = 'success';

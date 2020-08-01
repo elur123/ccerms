@@ -104,7 +104,7 @@ import { mapGetters, mapActions} from 'vuex'
                 }
             },
             CheckDL(str){
-                this.path = '../storage/Submittedfiles/Done/'+str
+                this.path = '../app/myfiles/Submittedfiles/Done/'+str
             },
             Submit(){
                 this.loading = true

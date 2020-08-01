@@ -278,10 +278,10 @@
         },
         methods:{
             GetPath(str){
-                this.path = '../storage/Panelfiles/'+str
+                this.path = '../app/myfiles/Panelfiles/'+str
             },
             GroupDL(){
-                this.path = '../storage/Submittedfiles/Capstone1/'+this.revise.rev_grpfile
+                this.path = '../app/myfiles/Submittedfiles/Capstone1/'+this.revise.rev_grpfile
             },
             OpenModal(index){
                 $('#mdlRevise').modal('show')
