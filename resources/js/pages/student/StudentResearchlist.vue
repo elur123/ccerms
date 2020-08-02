@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div v-if="groupinfo.info">
         <sidebar :user="user"></sidebar>
-          <div class="main-panel" id="main-panel">
+        <div class="main-panel" id="main-panel">
             <!-- Navbar -->
             <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute">
                 <div class="container-fluid">
@@ -23,55 +23,6 @@
                         <span class="navbar-toggler-bar navbar-kebab"></span>
                         <span class="navbar-toggler-bar navbar-kebab"></span>
                     </button>
-
-                    <!-- <div class="collapse navbar-collapse justify-content-end" id="navigation">
-
-
-                        <form>
-                            <div class="input-group no-border">
-                                <input type="text" value="" class="form-control" placeholder="Search...">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <i class="now-ui-icons ui-1_zoom-bold"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#pablo">
-                                    <i class="now-ui-icons media-2_sound-wave"></i>
-                                    <p>
-                                        <span class="d-lg-none d-md-block">Stats</span>
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                    <i class="now-ui-icons location_world"></i>
-                                    <p>
-                                        <span class="d-lg-none d-md-block">Some Actions</span>
-                                    </p>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="#pablo">
-                                    <i class="now-ui-icons users_single-02"></i>
-                                    <p>
-                                        <span class="d-lg-none d-md-block">Account</span>
-                                    </p>
-                                </a>
-                            </li>
-                        </ul>
-                    </div> -->
                 </div>
             </nav>
             <div class="panel-header panel-header-sm">
@@ -80,26 +31,43 @@
                <Researchlist></Researchlist>
             </div>
         </div>
-
+        <val1 :sections="sections" :grp="groupinfo.info" v-if="groupinfo.info.sec_id == null && groupinfo.info.grp_standing == 0" />
+        <val2 :sections="sections" :grp="groupinfo.info" v-if="groupinfo.info.sec_id2 == null && groupinfo.info.grp_standing == 2" />
     </div>
 </template>
 <script>
 import StudentSidebar from './StudentSidebar'
+import ValidateSection1 from './ValidateSection1'
+import ValidateSection2 from './ValidateSection2'
 import { mapGetters, mapActions } from 'vuex'
 import Researchlist from '../../components/ResearchList'
 export default {
     props:['user'],
+    data(){
+        return{
+            sections: {}
+        }
+    },
     components:{
+        'val1' : ValidateSection1,
+        'val2' : ValidateSection2,
         'sidebar' : StudentSidebar,
         'Researchlist' : Researchlist,
     },
     methods:{
-        ...mapActions(["fetchadminDashboard","fetchDependencies"])
+        CheckSection(){
+            axios.get('../../api/getsectionlist/'+ this.user.grp_id).then(res => {
+                this.sections = res.data.sections
+            })
+        },
+        ...mapActions(["fetchadminDashboard","fetchDependencies","getGroupInfo"])
     },
-    computed: mapGetters(['getadminDashboard']),
+    computed: mapGetters(['getadminDashboard','groupinfo']),
     created(){
+        this.CheckSection()
         this.fetchadminDashboard();
         this.fetchDependencies();
+        this.getGroupInfo(this.user.grp_id)
     }
 }
 </script>

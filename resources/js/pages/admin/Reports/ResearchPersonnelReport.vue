@@ -28,11 +28,11 @@
             <div class="panel-header panel-header-sm">
                 <div class="row" style="margin-top:-30px;">
                     <div class="col-md-6 mr-auto ml-auto">
-                        <button class="btn btn-info btn-round btn-block">Print</button>
+                        <button class="btn btn-info btn-round btn-block" @click="print">Print</button>
                     </div>
                 </div>
             </div>
-            <div class="content">
+            <div class="content" id="printMe">
                 <div class="card">
                     <div class="card-body">
                         <div class="row ph">
@@ -65,26 +65,38 @@
                                         <div class="col-md-12">
                                             <p style="font-size:15px;" class="font-weight-bold">Panel</p>
                                             <div class="table-responsive">
-                                                <table class="table table-stripe">
+                                                <table class="table table-hover text-center">
                                                     <thead>
                                                         <tr>
                                                             <td><strong>Name</strong></td>
                                                             <td><strong>Specialization</strong></td>
                                                         </tr>
                                                     </thead>
+                                                    <tbody>
+                                                        <tr v-for="p in rp.panel" :key="p.id">
+                                                            <td>{{ p.name }}</td>
+                                                            <td>{{ p.specialty }}</td>
+                                                        </tr>
+                                                    </tbody>
                                                 </table>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <p style="font-size:15px;" class="font-weight-bold">Adviser</p>
                                             <div class="table-responsive">
-                                                <table class="table table-stripe">
+                                                <table class="table table-hover text-center">
                                                     <thead>
                                                         <tr>
                                                             <td><strong>Name</strong></td>
                                                             <td><strong>Specialization</strong></td>
                                                         </tr>
                                                     </thead>
+                                                    <tbody>
+                                                        <tr v-for="a in rp.adviser" :key="a.id">
+                                                            <td>{{ a.name }}</td>
+                                                            <td>{{ a.specialty }}</td>
+                                                        </tr>
+                                                    </tbody>
                                                 </table>
                                             </div>
                                         </div>
@@ -123,7 +135,24 @@
         components: {
             'sidebar': AdminSidebar,
         },
+        data(){
+            return{
+                rp : {
+                    adviser:{},
+                    panel:{}
+                }
+            }
+        },
         methods: {
+            GetReport(){
+                axios.get('../api/getresearchperson').then(res => {
+                    this.rp.adviser = res.data.adviser
+                    this.rp.panel = res.data.panel
+                })
+            },
+            print() {
+                this.$htmlToPaper('printMe');
+            },
             getDate() {
                 var date = moment(Date.now()).format('MMDD')
                 return date
@@ -136,6 +165,7 @@
         },
         computed: mapGetters(['getadminDashboard']),
         created() {
+            this.GetReport()
             this.fetchadminDashboard();
             this.fetchDependencies();
         }

@@ -608,4 +608,38 @@ class StudentController extends Controller
                         ->get();
        return $checklist;
     }
+    function GetSectionList($id){
+        $section = DB::table('users')
+                    ->join('sections', 'users.sec_id', 'sections.sec_id')
+                    ->select('sections.sec_id', 'sections.sec_code')
+                    ->where('grp_id', $id)
+                    ->get();
+
+        return ['sections' => $section];
+    }
+    function UpdateGroupSection(Request $request){
+        $message = '';
+        if ($request->type == 1) {
+            if ($request->secid == '') {
+                $message = 'Please Select Section';
+            }
+            else{
+                $section = DB::table('groups')
+                            ->where('grp_id', $request->grpid)
+                            ->update([
+                                'sec_id' => $request->secid
+                            ]);
+                if ($section) {
+                    $message = 'success';
+                }
+                else{
+                    $message = 'Somethings went wrong. Try again Later';
+                }
+            }
+        }
+        else{
+
+        }
+        return ['message' => $message];
+    }
 }

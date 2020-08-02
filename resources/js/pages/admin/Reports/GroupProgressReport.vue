@@ -28,16 +28,17 @@
             <div class="panel-header panel-header-sm">
                 <div class="container row" style="margin-top:-30px;">
                     <div class="col-md-6">
-                        <select class="form-control text-white">
+                        <select class="form-control text-white" v-model="details.sec_id" @change="ChangeSections">
                             <option value="">Select Course Code</option>
+                            <option v-for="s in sections" :key="s.sec_id" :value="s.sec_id">{{ s.sec_code }}</option>
                         </select>
                     </div>
                     <div class="col-md-6 mr-auto ml-auto">
-                        <button class="btn btn-info btn-round btn-block">Print</button>
+                        <button class="btn btn-info btn-round btn-block" @click="print">Print</button>
                     </div>
                 </div>
             </div>
-            <div class="content">
+            <div class="content" id="printMe">
                 <div class="card">
                     <div class="card-body">
                         <div class="row ph">
@@ -64,21 +65,19 @@
                                 16500 - {{ getYear() }} - {{ getDate() }}/rev 0
                             </div>
                             <div class="col-md-12">
-
-
                                 <div class="col-md-12">
                                     <div class="table-responsive">
                                         <h4 class="title text-center">List of Group Progress</h4>
-                                        <p class="text-center" style="font-size:12px;">SY</p>
+                                        <p class="text-center" style="font-size:12px;">SY {{ details.sec.sec_yrs }} - {{ details.sec.sec_yre }}</p>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <p>Course Code: </p>
-                                                <p>Subject Teacher: </p>
-                                                <p>Time: </p>
-                                                <p># of Groups: </p>
+                                                <p>Course Code: {{ details.sec.sec_code }}</p>
+                                                <p>Subject Teacher: {{ details.sec.name }}</p>
+                                                <p>Time: {{ details.sec.sec_time }}</p>
+                                                <p># of Groups: {{ details.groups.length }}</p>
                                             </div>
                                             <div class="col-md-12">
-                                                <table class="table table-hover">
+                                                <table class="table table-hover text-center">
                                                     <thead>
                                                         <tr>
                                                             <td><strong>Group Name</strong></td>
@@ -86,8 +85,9 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-
+                                                        <tr v-for="g in details.groups" :key="g.grp_id">
+                                                            <td>{{ g.grp_title }}%</td>
+                                                            <td>{{ g.grp_percent }}%</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -131,7 +131,36 @@
         components: {
             'sidebar': AdminSidebar,
         },
+        data(){
+            return{
+                sections:{},
+                details:{
+                    sec_id:'',
+                    sec:{},
+                    groups:{},
+                }
+            }
+        },
         methods: {
+            GetSectionList(){
+                axios.get('../api/getsectionlist').then(res => {
+                    this.sections = res.data.sections
+                })
+            },
+            ChangeSections(){
+                if (this.details.sec_id == '') {
+
+                }
+                else{
+                    this.details.sec = this.sections.find(data => data.sec_id == this.details.sec_id)
+                    axios.get('../api/getsectiongrouprogress/'+this.details.sec_id).then(res => {
+                        this.details.groups = res.data.groups
+                    })
+                }
+            },
+            print() {
+                this.$htmlToPaper('printMe');
+            },
             getDate() {
                 var date = moment(Date.now()).format('MMDD')
                 return date
@@ -144,6 +173,7 @@
         },
         computed: mapGetters(['getadminDashboard']),
         created() {
+            this.GetSectionList()
             this.fetchadminDashboard();
             this.fetchDependencies();
         }

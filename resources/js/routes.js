@@ -45,7 +45,9 @@ import SubjectteacherDashboard from './pages/subjectteacher/SubjectteacherDashbo
 import SubjectteacherProfile from './pages/subjectteacher/SubjectteacherProfile'
 import SubjectteacherMessenger from './pages/subjectteacher/SubjectteacherMessenger';
 import SubjectteacherSchedule from './pages/subjectteacher/SubjectteacherSchedule'
-import SubjectteacherSection from './pages/subjectteacher/SubjectteacherSection'
+import SubjectteacherSection1 from './pages/subjectteacher/SubjectteacherSection1'
+import SubjectteacherSection2 from './pages/subjectteacher/SubjectteacherSection2'
+import SubjectteacherGroups from './pages/subjectteacher/SubjectteacherGroups'
 
 //Student Route
 import StudentDashboard from './pages/student/StudentDashboard';
@@ -58,6 +60,7 @@ import StudentGroupMinutes from './pages/student/StudentGroupMinutes';
 import StudentGroupSubmission from './pages/student/StudentGroupSubmission';
 import StudentResearchlist from './pages/student/StudentResearchlist';
 import StudentSchedule from './pages/student/StudentSchedule';
+import StudentSection from './pages/student/StudentSection'
 
 export default[
     {
@@ -262,9 +265,19 @@ export default[
         name: 'SubjectteacherSchedule'
     },
     {
-        path: '/subjectteacher/sections',
-        component: SubjectteacherSection,
-        name: 'SubjectteacherSection'
+        path: '/subjectteacher/sections1',
+        component: SubjectteacherSection1,
+        name: 'SubjectteacherSection1'
+    },
+    {
+        path: '/subjectteacher/sections2',
+        component: SubjectteacherSection2,
+        name: 'SubjectteacherSection2'
+    },
+    {
+        path: '/subjectteacher/groups',
+        component: SubjectteacherGroups,
+        name: 'SubjectteacherGroups'
     },
 
     //Student Route
@@ -312,6 +325,11 @@ export default[
         path: '/student/group/submission',
         component: StudentGroupSubmission,
         name: 'StudentGroupSubmission'
+    },
+    {
+        path: '/student/group/section',
+        component: StudentSection,
+        name: 'StudentSection'
     },
     {
         path: '/student/group/minutes',

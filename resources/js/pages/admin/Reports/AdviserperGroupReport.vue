@@ -28,11 +28,11 @@
             <div class="panel-header panel-header-sm">
                 <div class="row" style="margin-top:-30px;">
                     <div class="col-md-6 mr-auto ml-auto">
-                        <button class="btn btn-info btn-round btn-block">Print</button>
+                        <button class="btn btn-info btn-round btn-block" @click="print">Print</button>
                     </div>
                 </div>
             </div>
-            <div class="content">
+            <div class="content" id="printMe">
                 <div class="card">
                     <div class="card-body">
                         <div class="row ph">
@@ -61,7 +61,7 @@
                             <div class="col-md-12">
                                 <div class="table-responsive">
                                     <h4 class="title text-center">List of Advisers and Advisees</h4>
-                                    <table class="table table-hover">
+                                    <table class="table table-hover text-center">
                                         <thead>
                                             <tr>
                                                 <td><strong>Name of Faculty</strong></td>
@@ -70,8 +70,10 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-
+                                            <tr v-for="a in group" :key="a.ag_id">
+                                                <td>{{ a.name }}</td>
+                                                <td>{{ a.student }}</td>
+                                                <td>{{ a.sec_code }}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -109,7 +111,20 @@
         components: {
             'sidebar': AdminSidebar,
         },
+        data(){
+            return{
+                group:{},
+            }
+        },
         methods: {
+            GetReport(){
+                axios.get('../api/getadviserlist').then(res => {
+                    this.group = res.data.adviser
+                })
+            },
+            print() {
+                this.$htmlToPaper('printMe');
+            },
             getDate() {
                 var date = moment(Date.now()).format('MMDD')
                 return date
@@ -122,6 +137,7 @@
         },
         computed: mapGetters(['getadminDashboard']),
         created() {
+            this.GetReport()
             this.fetchadminDashboard();
             this.fetchDependencies();
         }

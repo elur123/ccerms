@@ -89,7 +89,13 @@ Route::group(['prefix' => 'subjectteacher', 'middleware' => ['auth','subjectteac
     Route::get('/schedule', function(){
         return view('pages.admin');
     })->middleware('validateuser');
-    Route::get('/sections', function(){
+    Route::get('/sections1', function(){
+        return view('pages.admin');
+    })->middleware('validateuser');
+    Route::get('/sections2', function(){
+        return view('pages.admin');
+    })->middleware('validateuser');
+    Route::get('/groups', function(){
         return view('pages.admin');
     })->middleware('validateuser');
     Route::get('/profile', function(){
@@ -186,6 +192,9 @@ Route::group(['prefix' => 'student', 'middleware' => ['auth','student']], functi
         return view('pages.admin');
     })->middleware('validateuser');
     Route::get('/group/submission', function(){
+        return view('pages.admin');
+    })->middleware('validateuser');
+    Route::get('/group/section', function(){
         return view('pages.admin');
     })->middleware('validateuser');
     Route::get('/group/minutes', function(){

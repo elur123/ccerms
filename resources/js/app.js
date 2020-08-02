@@ -5,6 +5,7 @@ import moment from 'moment';
 import Swal from 'sweetalert2'
 // import App from './App.vue';
 import routes from './routes';
+import VueHtmlToPaper from 'vue-html-to-paper';
 import VueFormWizard from 'vue-form-wizard'
 import VueConfetti from 'vue-confetti'
 import 'vue-form-wizard/dist/vue-form-wizard.min.css'
@@ -34,6 +35,18 @@ Vue.component('research-list', require('./components/ResearchList.vue').default)
 Vue.use(VueRouter);
 Vue.use(VueFormWizard);
 Vue.use(VueConfetti);
+const options = {
+    name: '_blank',
+    specs: [
+      'fullscreen=yes',
+      'titlebar=yes',
+      'scrollbars=yes'
+    ],
+    styles: [
+      'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
+    ]
+  }
+Vue.use(VueHtmlToPaper, options);
 
 const router = new VueRouter({
     mode: 'history',

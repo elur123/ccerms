@@ -75,6 +75,12 @@
                                 </router-link>
                             </li>
                             <li>
+                                <router-link to="/student/group/section">
+                                    <span class="sidebar-mini-icon">S</span>
+                                    <span class="sidebar-normal">Section</span>
+                                </router-link>
+                            </li>
+                            <li>
                                 <router-link to="/student/group/submission">
                                     <span class="sidebar-mini-icon">S</span>
                                     <span class="sidebar-normal">Submission</span>

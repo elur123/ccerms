@@ -57,6 +57,11 @@ Route::post('/adminsystemcheckcaps2', 'AdminController@AdminSystemCheckCaps2'); 
 
     //Done Groups
 Route::post('/checklistdecission', 'AdminController@ChecklistDecission'); //Admin will decide the final Checklist
+// Reports API
+Route::get('/getadviserlist', 'AdminController@GetAdviserList');
+Route::get('/getresearchperson', 'AdminController@GetResearchPerson');
+Route::get('/getsectionlist', 'AdminController@GetSectionList');
+Route::get('/getsectiongrouprogress/{id}', 'AdminController@GetSectionGroupProgress');
 
 //Adviser Routes
 Route::get('/getadvisergrouprequest/{id}', 'AdviserController@GetAdviserGroupRequest'); //get groups request for adviser
@@ -94,6 +99,12 @@ Route::post('/JoinGroup', 'StudentController@JoinGroup'); //student join group
 Route::post('/JoinSection', 'StudentController@JoinSection'); //student join section
 Route::get('/Capstone1Info', 'StudentController@Capstone1Info');//student get information in capstone 1 status
 Route::get('/getstudentgroupschedule/{id}', 'StudentController@GetStudentGroupSchedule'); //Student get Schedule
+
+    //get Section List
+Route::get('/getsectionlist/{id}', 'StudentController@GetSectionList'); //Student Get Section List
+Route::post('/updategroupsection', 'StudentController@UpdateGroupSection'); //Student Update GroupSection
+
+
 
     //Group Submission
 Route::post('/SubmitDocs', 'StudentController@SubmitDocs'); //student submit chapters

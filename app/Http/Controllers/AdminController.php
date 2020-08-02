@@ -1475,4 +1475,55 @@ class AdminController extends Controller
         }
         return ['message' => $message];
     }
+
+    // Reports functions
+    public function GetAdviserList(){
+        $adviser =DB::table('advisergroups')
+                    ->join('groups', 'advisergroups.grp_id', '=', 'groups.grp_id')
+                    ->join('users as ag','advisergroups.id', 'ag.id')
+                    ->join('users as st', 'groups.grp_id', 'st.grp_id')
+                    ->join('sections', 'st.sec_id','sections.sec_id')
+                    ->select('advisergroups.ag_id', 'ag.name', DB::raw('GROUP_CONCAT(st.name) as student'), DB::raw('GROUP_CONCAT(sections.sec_code) as sec_code'))
+                    ->groupBy('advisergroups.ag_id', 'ag.name')
+                    ->where('groups.isDone', 0)
+                    ->where('advisergroups.id', '!=', 2)
+                    ->get();
+        return ['adviser' => $adviser];
+    }
+    public function GetResearchPerson(){
+        $adviser = DB::table('users')
+                    ->where('typ_id', 2)
+                    ->orWhere('typ_id', 6)
+                    ->where('us_id', 1)
+                    ->select('users.id','users.name', 'users.specialty')
+                    ->get();
+
+        $panel = DB::table('users')
+                    ->where('typ_id', 5)
+                    ->orWhere('typ_id', 6)
+                    ->where('us_id', 1)
+                    ->select('users.id','users.name', 'users.specialty')
+                    ->get();
+
+        return ['adviser' => $adviser, 'panel' => $panel];
+    }
+    function GetSectionList(){
+        $sections = DB::table('s_t_sections')
+                    ->join('sections', 's_t_sections.sec_id', 'sections.sec_id')
+                    ->join('users', 's_t_sections.user_id', 'users.id')
+                    ->select('users.name', 'sections.*')
+                    ->get();
+
+        return ['sections' => $sections];
+
+    }
+    function GetSectionGroupProgress($id){
+        $groups = DB::table('groups')
+                    ->select('grp_id', 'grp_title', 'grp_percent')
+                    ->where('sec_id', $id)
+                    ->orWhere('sec_id2', $id)
+                    ->get();
+
+        return ['groups' => $groups];
+    }
 }

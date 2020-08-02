@@ -1,5 +1,5 @@
-<template >
-    <div>
+<template>
+    <div v-if="groupinfo.info">
         <sidebar :user="user"></sidebar>
         <div class="main-panel" id="main-panel">
             <!-- Navbar -->
@@ -175,10 +175,13 @@
                 </div>
             </div>
         </div>
-
+        <val1 :sections="sections" :grp="groupinfo.info" v-if="groupinfo.info.sec_id == null && groupinfo.info.grp_standing == 0" />
+        <val2 :sections="sections" :grp="groupinfo.info" v-if="groupinfo.info.sec_id2 == null && groupinfo.info.grp_standing == 2" />
     </div>
 </template>
 <script>
+    import ValidateSection1 from './ValidateSection1'
+    import ValidateSection2 from './ValidateSection2'
     import StudentSidebar from './StudentSidebar'
     import RCProgress from '../../components/Progress/RCProgress'
     import AdviserProgress from '../../components/Progress/AdviserProgress'
@@ -190,6 +193,8 @@
     export default {
         props: ['user'],
         components: {
+            'val1' : ValidateSection1,
+            'val2' : ValidateSection2,
             'sidebar': StudentSidebar,
             'rc-progress' : RCProgress,
             'adviser-progress' : AdviserProgress,
@@ -203,9 +208,16 @@
                 panels: {},
 
                 isUpload: false,
+
+                sections:{},
             }
         },
         methods: {
+            CheckSection(){
+                axios.get('../../api/getsectionlist/'+ this.user.grp_id).then(res => {
+                    this.sections = res.data.sections
+                })
+            },
             GetGroupInfo() {
                 axios.get('../../api/selectCap1/' + this.user.grp_id).then(res => {
                     this.GroupInfo = res.data.info[0]
@@ -223,6 +235,7 @@
             ...mapGetters(['getadminDashboard','groupinfo']),
         },
         created() {
+            this.CheckSection()
             // this.fetchadminDashboard();
             // this.fetchDependencies();
             this.getGroupInfo(this.user.grp_id);

@@ -74,17 +74,35 @@
 
                 </li>
                 <li>
-                    <router-link to="/subjectteacher/sections">
+                    <router-link to="/subjectteacher/groups">
                         <i class="fas fa-users"></i>
-                        <p>Manage Sections</p>
+                        <p>Manage Groups</p>
                     </router-link>
 
                 </li>
                 <li>
-                    <router-link to="/subjectteacher/group">
+                    <a data-toggle="collapse" href="#section">
                         <i class="fas fa-users"></i>
-                        <p>Manage Groups</p>
-                    </router-link>
+                        <p>
+                            Sections <b class="caret"></b>
+                        </p>
+                    </a>
+                    <div class="collapse" id="section">
+                        <ul class="nav">
+                            <li>
+                                <router-link to="/subjectteacher/sections1">
+                                    <span class="sidebar-mini-icon">C1</span>
+                                    <span class="sidebar-normal">Capstone 1</span>
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link to="/subjectteacher/sections2">
+                                    <span class="sidebar-mini-icon">C2</span>
+                                    <span class="sidebar-normal">Capstone 2</span>
+                                </router-link>
+                            </li>
+                        </ul>
+                    </div>
 
                 </li>
                  <li v-if="user.typ_id != 2">

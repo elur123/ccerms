@@ -76,7 +76,7 @@
                                 <div class="table-responsive">
                                     <h4 class="title text-center">List of Research Report</h4>
                                     <p class="text-center" style="font-size:12px;">SY </p>
-                                    <table class="table table-hover">
+                                    <table class="table table-hover text-center">
                                         <thead>
                                             <tr>
                                                 <td><strong>Title</strong></td>
