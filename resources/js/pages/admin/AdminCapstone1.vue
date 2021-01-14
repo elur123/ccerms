@@ -130,6 +130,19 @@
                                 </div>
                                 <div class="tab-content tab-space tab-subcategories">
                                     <div class="tab-pane active" id="info">
+                                        <form-wizard v-if="groupinfo.info && (groupinfo.info.grp_standing == 1 || groupinfo.info.grp_standing == 0)" color="#f44336" :start-index="groupinfo.info.caps1" ref="wizzard">
+                                            <h4 slot="title" class="title">Group Milestone</h4>
+                                            <tab-content title="Chapter 1 to 3" icon="fas fa-file"></tab-content>
+                                            <tab-content title="Capstone 1 System" icon="fas fa-cogs"></tab-content>
+                                            <tab-content title="Evaluation" icon="fas fa-file"></tab-content>
+                                            <tab-content title="Grammarly and Plagiarism" icon="fas fa-file"></tab-content>
+                                            <tab-content title="Validator" icon="fas fa-file"></tab-content>
+                                            <template slot="footer">
+                                                <div class="wizard-footer-right">
+
+                                                </div>
+                                            </template>
+                                        </form-wizard>
                                         <h4 class="title text-center">Group Information</h4>
                                         <hr>
                                         <div v-if="isAssignAdviser == false && isAssignPanel == false" class="row">

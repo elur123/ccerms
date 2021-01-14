@@ -1,6 +1,32 @@
 <template>
     <div class="row">
         <div class="col-md-12">
+            <form-wizard color="#f44336" v-if="grp.grp_standing == 0 || grp.grp_standing == 1" :start-index="grp.caps1" ref="wizzard">
+                <h4 slot="title" class="title">Group Milestone</h4>
+                <tab-content title="Chapter 1 to 3" icon="fas fa-file"></tab-content>
+                <tab-content title="Capstone 1 System" icon="fas fa-cogs"></tab-content>
+                <tab-content title="Evaluation" icon="fas fa-file"></tab-content>
+                <tab-content title="Grammarly and Plagiarism" icon="fas fa-file"></tab-content>
+                <tab-content title="Validator" icon="fas fa-file"></tab-content>
+                <template slot="footer">
+                    <div class="wizard-footer-right">
+
+                    </div>
+                </template>
+            </form-wizard>
+            <form-wizard v-if="grp.grp_standing == 2" color="#f44336" :start-index="grp.caps2" ref="wizzard">
+                <h2 slot="title">Group Milestone</h2>
+                <tab-content title="Certificates" icon="fas fa-file"></tab-content>
+                <tab-content title="Chapter 1 to 6" icon="fas fa-file"></tab-content>
+                <tab-content title="Evaluation" icon="fas fa-file"></tab-content>
+                <tab-content title="Grammarly and Plagiarism" icon="fas fa-file"></tab-content>
+                <tab-content title="Validation" icon="fas fa-file"></tab-content>
+                <template slot="footer">
+                    <div class="wizard-footer-right">
+
+                    </div>
+                </template>
+            </form-wizard>
             <h4 class="title text-center">Group Information</h4>
             <hr>
             <div class="row">

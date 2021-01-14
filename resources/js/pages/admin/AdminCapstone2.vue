@@ -132,16 +132,29 @@
                                                 Resources
                                             </a>
                                         </li>
-                                        <li class="nav-item">
+                                        <!-- <li class="nav-item">
                                             <a href="#message" data-toggle="tab" role="tablist" class="nav-link">
                                                 <i class="fas fa-comment-dots"></i>
                                                 Message
                                             </a>
-                                        </li>
+                                        </li> -->
                                     </ul>
                                 </div>
                                 <div class="tab-content tab-space tab-subcategories">
                                     <div class="tab-pane active" id="info">
+                                        <form-wizard v-if="groupinfo.info && groupinfo.grp_standing == 2" color="#f44336" :start-index="groupinfo.caps2" ref="wizzard">
+                                            <h2 slot="title">Group Milestone</h2>
+                                            <tab-content title="Certificates" icon="fas fa-file"></tab-content>
+                                            <tab-content title="Chapter 1 to 6" icon="fas fa-file"></tab-content>
+                                            <tab-content title="Evaluation" icon="fas fa-file"></tab-content>
+                                            <tab-content title="Grammarly and Plagiarism" icon="fas fa-file"></tab-content>
+                                            <tab-content title="Validation" icon="fas fa-file"></tab-content>
+                                            <template slot="footer">
+                                                <div class="wizard-footer-right">
+
+                                                </div>
+                                            </template>
+                                        </form-wizard>
                                         <h4 class="title text-center">Group Information</h4>
                                         <hr>
                                         <div v-if="isAssignAdviser == false && isAssignPanel == false" class="row">

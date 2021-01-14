@@ -157,12 +157,12 @@
                                             Minutes
                                         </a>
                                     </li>
-                                    <li class="nav-item">
+                                    <!-- <li class="nav-item">
                                         <a href="#message" data-toggle="tab" role="tablist" class="nav-link">
                                             <i class="fas fa-comment-dots"></i>
                                             Message
                                         </a>
-                                    </li>
+                                    </li> -->
                                 </ul>
                                 <div class="tab-content tab-space tab-subcategories">
                                     <div class="tab-pane active" id="info">
